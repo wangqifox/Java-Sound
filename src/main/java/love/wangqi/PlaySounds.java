@@ -12,15 +12,12 @@ public class PlaySounds extends Thread {
     public PlaySounds(String wavfile) {
         filename = wavfile;
     }
-    public void run() {
-        File soundFile = new File(filename);
-        AudioInputStream audioInputStream = null;
-        try {
-            audioInputStream = AudioSystem.getAudioInputStream(soundFile);
-        } catch (Exception e1) {
-            e1.printStackTrace();
-            return;
-        }
+
+    public PlaySounds() {
+
+    }
+
+    public void play(AudioInputStream audioInputStream) {
         AudioFormat format = audioInputStream.getFormat();
         SourceDataLine auline = null;
         DataLine.Info info = new DataLine.Info(SourceDataLine.class, format);
@@ -48,6 +45,18 @@ public class PlaySounds extends Thread {
             auline.drain();
             auline.close();
         }
+    }
+
+    public void run() {
+        File soundFile = new File(filename);
+        AudioInputStream audioInputStream = null;
+        try {
+            audioInputStream = AudioSystem.getAudioInputStream(soundFile);
+        } catch (Exception e1) {
+            e1.printStackTrace();
+            return;
+        }
+        play(audioInputStream);
     }
 
     public static void main(String[] args) {

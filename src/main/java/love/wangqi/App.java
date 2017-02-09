@@ -16,6 +16,8 @@ public class App {
             AudioInputStream currentSound = AudioSystem.getAudioInputStream(new File("welcome.wav"));
             AudioFormat format = currentSound.getFormat();
 
+            System.out.println(format);
+
             DataLine.Info info = new DataLine.Info(
                     SourceDataLine.class,
                     format
